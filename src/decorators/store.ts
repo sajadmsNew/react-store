@@ -55,6 +55,30 @@ export const createEnhancedStoreType = (StoreType: any) => {
           },
         });
       });
+
+      // const methods = getMehtodsPropertyDescriptors(this);
+
+      // Object.keys(methods)
+      //   .filter((key) => key !== "constructor")
+      //   .forEach((methodKey) => {
+      //     const descriptor: PropertyDescriptor = methods[methodKey];
+      //     storeAdmin.propertyKeysValue.set(methodKey, descriptor.value);
+      //     console.log(methodKey, descriptor);
+
+      //     Object.defineProperty(this, methodKey, {
+      //       enumerable: false,
+      //       configurable: true,
+      //       get() {
+      //         const storeAdmin = getStoreAdministrator(this);
+      //         const value = storeAdmin?.propertyKeysValue.get(methodKey);
+      //         return value?.[PROXIED_VALUE] || value;
+      //       },
+      //       set(value: any) {
+      //         const storeAdmin = getStoreAdministrator(this);
+      //         storeAdmin?.propertyKeysValue.set(methodKey, value);
+      //       },
+      //     });
+      //   });
     }
   } as any;
   // change constructor name for improve debugging
@@ -65,3 +89,16 @@ export const createEnhancedStoreType = (StoreType: any) => {
 
   return EnhancedStoreType;
 };
+
+// const getMehtodsPropertyDescriptors = (o: any) => {
+//   const _get = (o: any, methods = {}) => {
+//     const proto = Object.getPrototypeOf(o);
+//     if (proto && proto !== Object.prototype) {
+//       methods = { ...methods, ...Object.getOwnPropertyDescriptors(proto) };
+//       return _get(proto, methods);
+//     } else {
+//       return methods;
+//     }
+//   };
+//   return _get(o);
+// };

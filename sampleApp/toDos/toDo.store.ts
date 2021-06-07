@@ -1,4 +1,4 @@
-import { Store, Effect, Inject, Props } from "@react-store/core";
+import { Store, Effect, Inject, Props, Action } from "@react-store/core";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { ToDoService } from "sampleApp/toDos/services/todos.service";
 import ThemeStore from "../theme.store";
@@ -6,10 +6,10 @@ import FormValidator from "sampleApp/libs/formValidator";
 
 @Store()
 export default class ToDoStore {
-  @Props
+  @Props()
   props: any;
 
-  todos: ToDoItem[] = [{ value: "amir", isEditing: false }];
+  todos: ToDoItem[] = [{ value: "Job -1", isEditing: false }];
 
   todoCount = 0;
 
@@ -21,15 +21,16 @@ export default class ToDoStore {
     @Inject(ThemeStore) public theme: ThemeStore,
     @Inject(ToDoService) public todoService: ToDoService
   ) {
-    // this.init();
+    setTimeout(() => {
+      this.init();
+    });
   }
 
+  @Action()
   init() {
-    setTimeout(() => {
-      for (let i = 0; i < 150; i++) {
-        this.todos.push({ value: i.toString(), isEditing: false });
-      }
-    });
+    for (let i = 0; i < 10; i++) {
+      this.todos.push({ value: "Job " + i.toString(), isEditing: false });
+    }
   }
 
   @Effect((_: ToDoStore) => [_.todos.length])
